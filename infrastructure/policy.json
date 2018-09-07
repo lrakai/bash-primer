@@ -1,0 +1,36 @@
+{
+	"parameters": {
+        "allowedServices": {
+            "type": "array",
+            "metadata": {
+                "description": "The list of Resource Types that are allowed.",
+                "strongType": "type",
+                "displayName": "Allowed resources"
+            }
+        }
+    },
+    "displayName": "Allowed services",
+    "description": "This policy restrict the allowed services.",
+    "policyRule": {
+        "if": {
+            "anyOf": [
+                {
+                    "not": {
+                        "field": "type",
+                        "in": "[parameters('allowedServices')]"
+                    }
+                }
+            ]
+        },
+        "then": {
+            "effect": "deny"
+        }
+    },
+    "parameters_values": {
+        "allowedServices": {
+            "value": [
+                "Microsoft.Storage/storageAccounts"
+            ]
+        }
+    }
+}
